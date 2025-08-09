@@ -1,0 +1,21 @@
+{
+  "best_val_correlation": 0.5920866582622899,
+  "best_epoch": 8,
+  "final_train_loss": 0.004425266447442118,
+  "final_val_loss": 0.004251713398844004,
+  "final_train_correlation": 0.595797561147182,
+  "final_val_correlation": 0.5911943186288513,
+  "total_epochs": 10,
+  "total_training_time": 1200.127028465271,
+  "model_info": {
+    "model_name": "BasicLSTM",
+    "total_parameters": 122113,
+    "trainable_parameters": 122113,
+    "rna_hidden_size": 64,
+    "protein_hidden_size": 64,
+    "num_layers": 1
+  },
+  "interrupted": false,
+  "early_stopped": true,
+  "output_dir": "runs\\phase1_20250730_132929"
+}

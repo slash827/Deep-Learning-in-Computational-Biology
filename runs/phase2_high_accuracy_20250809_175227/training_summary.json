@@ -1,0 +1,28 @@
+{
+  "best_val_correlation": 0.6529563658028233,
+  "best_epoch": 0,
+  "final_train_loss": 0.004090409386774991,
+  "final_val_loss": 0.0036919184494763613,
+  "final_train_correlation": 0.6438457079158266,
+  "final_val_correlation": 0.6461521252141336,
+  "total_epochs": 3,
+  "total_training_time": 1714.3955600261688,
+  "model_info": {
+    "model_name": "FastAttentionLSTM",
+    "total_parameters": 1079809,
+    "trainable_parameters": 1079809,
+    "rna_hidden_size": 96,
+    "protein_hidden_size": 96,
+    "num_layers": 2,
+    "attention_heads": 6,
+    "dropout": 0.3,
+    "use_positional_encoding": false,
+    "optimizations": "simplified_attention_enabled"
+  },
+  "interrupted": false,
+  "early_stopped": false,
+  "output_dir": "runs\\phase2_high_accuracy_20250809_175227",
+  "total_wall_time": 1714.3975632190704,
+  "time_per_epoch": 571.4658544063568,
+  "estimated_speedup": 2.0998629939956244
+}

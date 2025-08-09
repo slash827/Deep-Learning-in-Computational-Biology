@@ -1,0 +1,14 @@
+{
+  "model": "FastAttentionLSTM",
+  "subset_size": 1000,
+  "batch_size": 32,
+  "epochs": 3,
+  "hidden_size": 96,
+  "attention_heads": 6,
+  "learning_rate": 0.001,
+  "use_positional_encoding": false,
+  "device": "cuda",
+  "mixed_precision": false,
+  "optimization_mode": "high_accuracy",
+  "timestamp": "2025-08-09T17:53:01.429640"
+}

@@ -1,0 +1,20 @@
+{
+  "run_name": "phase1_20250730_132929",
+  "device": "cuda",
+  "subset_size": 1000,
+  "batch_size": 16,
+  "epochs": 10,
+  "learning_rate": 0.001,
+  "hidden_size": 64,
+  "num_layers": 1,
+  "dropout": 0.2,
+  "patience": 10,
+  "min_delta": 0.0001,
+  "max_grad_norm": 1.0,
+  "lr_scheduler_patience": 5,
+  "lr_scheduler_factor": 0.5,
+  "max_protein_length": 300,
+  "max_rna_length": 50,
+  "force_cpu": false,
+  "timestamp": "2025-07-30T13:29:29.269727"
+}

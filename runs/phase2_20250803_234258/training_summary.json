@@ -1,0 +1,24 @@
+{
+  "best_val_correlation": 0.5893204602606181,
+  "best_epoch": 0,
+  "final_train_loss": 0.0074923292421144655,
+  "final_val_loss": 0.006041062530130148,
+  "final_train_correlation": 0.5906289490363832,
+  "final_val_correlation": 0.5893204602606181,
+  "total_epochs": 1,
+  "total_training_time": 97.1359806060791,
+  "model_info": {
+    "model_name": "AttentionLSTM",
+    "total_parameters": 156929,
+    "trainable_parameters": 156929,
+    "rna_hidden_size": 32,
+    "protein_hidden_size": 32,
+    "num_layers": 1,
+    "attention_heads": 4,
+    "dropout": 0.3,
+    "use_positional_encoding": false
+  },
+  "interrupted": false,
+  "early_stopped": false,
+  "output_dir": "runs\\phase2_20250803_234258"
+}

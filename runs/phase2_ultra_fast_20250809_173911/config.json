@@ -1,0 +1,11 @@
+{
+  "model": "UltraFastLSTM",
+  "subset_size": 1000,
+  "batch_size": 64,
+  "epochs": 5,
+  "hidden_size": 64,
+  "learning_rate": 0.003,
+  "device": "cuda",
+  "optimizations": "ultra_fast_mode",
+  "timestamp": "2025-08-09T17:39:38.572777"
+}

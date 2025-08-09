@@ -1,0 +1,191 @@
+python phase1_main.py --subset_size 1000 --batch_size 16 --epochs 10 --hidden_size 64 --max_protein_length 300
+🖥️ GPU Memory: 4.0GB free / 4.0GB total
+============================================================
+RNA-Protein Binding Prediction - Phase 1: Basic BiLSTM
+============================================================
+🏃 Run name: phase1_20250730_132929
+📁 Output directory: runs\phase1_20250730_132929
+💻 Device: cuda
+📊 Subset size: 1000
+🔢 Batch size: 16
+🔄 Epochs: 10
+📈 Learning rate: 0.001
+🧠 Hidden size: 64
+🏗️ Layers: 1
+🛡️ Dropout: 0.2
+⏹️ Early stopping patience: 10
+✂️ Gradient clipping: 1.0
+📏 Max protein length: 300
+📏 Max RNA length: 50
+
+📝 Configuration saved to: runs\phase1_20250730_132929\config.json
+Loading training data...
+Loading training data...
+Loading binding scores...
+Loaded 0 score lines
+Loaded 50000 score lines
+Loaded 100000 score lines
+Loaded 24135600 total binding scores
+Loaded 120678 RNA sequences
+Loaded 200 protein sequences
+Created 200000 RNA-protein pairs
+Loaded 200000 RNA-protein pairs
+Binding scores range: 0.398 - 5.879
+
+Creating data loaders...
+Using custom sequence lengths: RNA=50, Protein=300
+Encoding sequences...
+Encoded 0/200000 sequences
+Encoded 10000/200000 sequences
+Encoded 20000/200000 sequences
+Encoded 30000/200000 sequences
+Encoded 40000/200000 sequences
+Encoded 50000/200000 sequences
+Encoded 60000/200000 sequences
+Encoded 70000/200000 sequences
+Encoded 80000/200000 sequences
+Encoded 90000/200000 sequences
+Encoded 100000/200000 sequences
+Encoded 110000/200000 sequences
+Encoded 120000/200000 sequences
+Encoded 130000/200000 sequences
+Encoded 140000/200000 sequences
+Encoded 150000/200000 sequences
+Encoded 160000/200000 sequences
+Encoded 170000/200000 sequences
+Encoded 180000/200000 sequences
+Encoded 190000/200000 sequences
+Encoding complete. Total sequences: 200000
+Training samples: 160000
+Validation samples: 40000
+RNA max length: 50
+Protein max length: 300
+
+Creating model...
+Model created: BasicLSTM
+Total parameters: 122,113
+Trainable parameters: 122,113
+
+Setting up trainer...
+🖥️ Initial GPU Memory: 0.00GB allocated, 0.00GB cached
+
+🎯 Training can be stopped anytime with Ctrl+C
+📊 All outputs will be saved to: runs\phase1_20250730_132929
+============================================================
+
+🚀 Starting training...
+Starting training for 10 epochs...
+Device: cuda
+Model: BasicLSTM
+Early stopping patience: 10
+Gradient clipping: 1.0
+Model parameters: 122113
+Training: 100%|██████████████| 10000/10000 [01:27<00:00, 114.26it/s, Loss=0.0022] 
+Epoch 1/10 (119.4s) - LR: 1.00e-03
+  Train Loss: 0.0053, Val Loss: 0.0047
+  Train Corr: 0.5091, Val Corr: 0.5042
+  Best Val Corr: 0.5042
+  Epochs w/o improvement: 1/10
+Training: 100%|██████████████| 10000/10000 [01:25<00:00, 117.42it/s, Loss=0.0017] 
+Epoch 2/10 (116.3s) - LR: 1.00e-03
+  Train Loss: 0.0047, Val Loss: 0.0045
+  Train Corr: 0.5445, Val Corr: 0.5348
+  Best Val Corr: 0.5348
+  Epochs w/o improvement: 2/10
+Training: 100%|██████████████| 10000/10000 [01:28<00:00, 113.50it/s, Loss=0.0043] 
+Epoch 3/10 (119.8s) - LR: 1.00e-03
+  Train Loss: 0.0046, Val Loss: 0.0043
+  Train Corr: 0.5672, Val Corr: 0.5633
+  Best Val Corr: 0.5633
+  Epochs w/o improvement: 3/10
+Training: 100%|██████████████| 10000/10000 [01:26<00:00, 115.04it/s, Loss=0.0043] 
+Epoch 4/10 (118.3s) - LR: 1.00e-03
+  Train Loss: 0.0046, Val Loss: 0.0044
+  Train Corr: 0.5831, Val Corr: 0.5776
+  Best Val Corr: 0.5776
+  Epochs w/o improvement: 4/10
+Training: 100%|██████████████| 10000/10000 [01:27<00:00, 114.26it/s, Loss=0.0019] 
+Epoch 5/10 (119.4s) - LR: 1.00e-03
+  Train Loss: 0.0045, Val Loss: 0.0046
+  Train Corr: 0.5682, Val Corr: 0.5607
+  Best Val Corr: 0.5776
+  Epochs w/o improvement: 5/10
+Training: 100%|██████████████| 10000/10000 [01:30<00:00, 110.75it/s, Loss=0.0028] 
+Epoch 6/10 (122.2s) - LR: 1.00e-03
+  Train Loss: 0.0045, Val Loss: 0.0043
+  Train Corr: 0.5697, Val Corr: 0.5630
+  Best Val Corr: 0.5776
+  Epochs w/o improvement: 6/10
+Training: 100%|██████████████| 10000/10000 [01:27<00:00, 114.01it/s, Loss=0.0022] 
+Epoch 7/10 (119.5s) - LR: 1.00e-03
+  Train Loss: 0.0045, Val Loss: 0.0042
+  Train Corr: 0.5922, Val Corr: 0.5885
+  Best Val Corr: 0.5885
+  Epochs w/o improvement: 7/10
+Training: 100%|██████████████| 10000/10000 [01:27<00:00, 114.09it/s, Loss=0.0042] 
+Epoch 8/10 (119.1s) - LR: 1.00e-03
+  Train Loss: 0.0045, Val Loss: 0.0042
+  Train Corr: 0.5969, Val Corr: 0.5913
+  Best Val Corr: 0.5913
+  Epochs w/o improvement: 8/10
+Training: 100%|██████████████| 10000/10000 [01:28<00:00, 112.51it/s, Loss=0.0138] 
+Epoch 9/10 (122.8s) - LR: 1.00e-03
+  Train Loss: 0.0045, Val Loss: 0.0041
+  Train Corr: 0.5975, Val Corr: 0.5921
+  Best Val Corr: 0.5921
+  Epochs w/o improvement: 9/10
+Training: 100%|██████████████| 10000/10000 [01:28<00:00, 112.47it/s, Loss=0.0024] 
+Epoch 10/10 (123.3s) - LR: 1.00e-03
+  Train Loss: 0.0044, Val Loss: 0.0043
+  Train Corr: 0.5958, Val Corr: 0.5912
+  Best Val Corr: 0.5921
+  Epochs w/o improvement: 10/10
+🛑 Early stopping triggered after 10 epochs
+
+==================================================
+🏁 Training completed in 1200.1s
+🛑 Training stopped early due to no improvement
+📊 Best validation correlation: 0.5921 at epoch 9
+==================================================
+
+📊 Training Summary:
+----------------------------------------
+Best validation correlation: 0.5921
+Best epoch: 9
+Total epochs trained: 10
+🛑 Training stopped early
+Final training correlation: 0.5958
+Final validation correlation: 0.5912
+Total training time: 1200.1s
+
+📊 Training summary saved to: runs\phase1_20250730_132929\training_summary.json   
+📈 Plotting training history...
+📊 Training history saved to: runs\phase1_20250730_132929\plots\training_history.png
+🔍 Evaluating model...
+Validation Metrics:
+--------------------
+pearson_correlation: 0.5912
+mse: 0.0043
+mae: 0.0457
+rmse: 0.0652
+
+📊 Plot saved to: runs\phase1_20250730_132929\plots\predictions_vs_targets.png
+⚡ Testing inference speed...
+Average inference time: 2.59ms per batch
+Throughput: 6175.1 samples/second
+
+🎉 Phase 1 completed successfully!
+📁 All outputs saved to: runs\phase1_20250730_132929
+💾 Model saved to: runs\phase1_20250730_132929\models\phase1_model.pth
+📊 Plots saved to: runs\phase1_20250730_132929\plots
+📋 Summary saved to: runs\phase1_20250730_132929\training_summary.json
+
+🚀 Recommendations for Phase 2:
+- Current best validation correlation: 0.5921
+✅ Good performance! Ready to add self-attention mechanism
+
+🔧 Memory optimization tips:
+- For CUDA memory issues: use --force_cpu or reduce --batch_size
+- Reduce --max_protein_length to limit sequence processing
+- Use smaller --hidden_size and --num_layers for less memory usage
+- Current model parameters: 122,113

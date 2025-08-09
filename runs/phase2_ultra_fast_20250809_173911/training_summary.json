@@ -1,0 +1,25 @@
+{
+  "best_val_correlation": 0.38059391066166914,
+  "best_epoch": 3,
+  "final_train_loss": 0.005976774097047746,
+  "final_val_loss": 0.006281079724431038,
+  "final_train_correlation": 0.0,
+  "final_val_correlation": 0.0,
+  "total_epochs": 5,
+  "total_training_time": 221.6852309703827,
+  "model_info": {
+    "model_name": "UltraFastLSTM",
+    "total_parameters": 48897,
+    "trainable_parameters": 48897,
+    "hidden_size": 64,
+    "num_layers": 1,
+    "dropout": 0.1,
+    "optimizations": "ultra_fast_mode"
+  },
+  "interrupted": false,
+  "early_stopped": true,
+  "output_dir": "runs\\phase2_ultra_fast_20250809_173911",
+  "total_wall_time": 221.69387292861938,
+  "time_per_epoch": 44.338774585723876,
+  "estimated_speedup": 27.064347429808628
+}
