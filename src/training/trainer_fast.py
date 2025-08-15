@@ -87,7 +87,6 @@ class FastRNAProteinTrainer:
             mode='max',  # Maximize validation correlation
             factor=lr_scheduler_factor,
             patience=lr_scheduler_patience,
-            verbose=True,
             min_lr=1e-6,
             threshold=1e-4
         )
