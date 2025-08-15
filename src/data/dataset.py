@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import torch
 from torch.utils.data import Dataset, DataLoader
-from typing import List, Tuple, Dict
+from typing import List, Tuple, Dict, Optional
 from .preprocessing import (
     encode_rna_sequence, 
     encode_protein_sequence, 
@@ -21,7 +21,8 @@ class RNAProteinDataset(Dataset):
                  binding_scores: np.ndarray,
                  rna_max_length: int = None,
                  protein_max_length: int = None,
-                 normalize_scores: bool = True):
+                 normalize_scores: bool = True,
+                 protein_embedding_lookup: Optional[Dict[str, np.ndarray]] = None):
         """
         Initialize dataset.
         
@@ -38,6 +39,7 @@ class RNAProteinDataset(Dataset):
         self.binding_scores = binding_scores.copy()
         self.rna_max_length = rna_max_length
         self.protein_max_length = protein_max_length
+        self.protein_embedding_lookup = protein_embedding_lookup or {}
         
         # Normalize binding scores if requested
         if normalize_scores:
@@ -57,7 +59,15 @@ class RNAProteinDataset(Dataset):
                 print(f"Encoded {i}/{len(self.rna_sequences)} sequences")
             
             rna_enc = encode_rna_sequence(rna_seq, self.rna_max_length)
-            protein_enc = encode_protein_sequence(protein_seq, self.protein_max_length)
+            # If embedding lookup provided, use vector; else one-hot encode sequence
+            if self.protein_embedding_lookup:
+                if protein_seq in self.protein_embedding_lookup:
+                    protein_enc = self.protein_embedding_lookup[protein_seq]
+                else:
+                    # Fallback to one-hot if embedding not found
+                    protein_enc = encode_protein_sequence(protein_seq, self.protein_max_length)
+            else:
+                protein_enc = encode_protein_sequence(protein_seq, self.protein_max_length)
             
             self.rna_encoded.append(rna_enc)
             self.protein_encoded.append(protein_enc)
@@ -69,7 +79,8 @@ class RNAProteinDataset(Dataset):
     
     def __getitem__(self, idx):
         rna_tensor = torch.FloatTensor(self.rna_encoded[idx])
-        protein_tensor = torch.FloatTensor(self.protein_encoded[idx])
+        protein_arr = self.protein_encoded[idx]
+        protein_tensor = torch.FloatTensor(protein_arr)
         score_tensor = torch.FloatTensor([self.binding_scores[idx]])
         
         return {
@@ -187,7 +198,8 @@ def create_data_loaders(rna_sequences: List[str],
                        rna_max_length: int = None,
                        protein_max_length: int = None,
                        num_workers: int = 0,
-                       pin_memory: bool = False) -> Tuple[DataLoader, DataLoader]:
+                       pin_memory: bool = False,
+                       protein_embedding_lookup: Optional[Dict[str, np.ndarray]] = None) -> Tuple[DataLoader, DataLoader]:
     """
     Create training and validation data loaders.
     
@@ -217,7 +229,9 @@ def create_data_loaders(rna_sequences: List[str],
         protein_sequences=protein_sequences,
         binding_scores=binding_scores,
         rna_max_length=rna_max_length,
-        protein_max_length=protein_max_length
+        protein_max_length=protein_max_length,
+        normalize_scores=True,
+        protein_embedding_lookup=protein_embedding_lookup
     )
     
     # Split into train and validation

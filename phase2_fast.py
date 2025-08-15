@@ -21,6 +21,7 @@ sys.path.append(str(project_root / "src"))
 
 from src.data.dataset import load_training_data, create_data_loaders
 from src.models.lstm_attention_fast import FastAttentionLSTM, UltraFastLSTM
+from src.models.protein_embedding_fusion import ProteinEmbeddingFusion
 from src.training.trainer_fast import FastRNAProteinTrainer
 from src.training.evaluation import plot_predictions_vs_targets
 from src.utils.helpers import create_run_directory, save_training_config, save_training_summary, save_comprehensive_run_report
@@ -98,6 +99,13 @@ def main():
     # Add new argument for ultra-fast mode
     parser.add_argument('--ultra_fast', action='store_true',
                        help='Use ultra-fast model (single LSTM, minimal attention)')
+    # Protein encoder (cached embeddings)
+    parser.add_argument('--protein_encoder', type=str, default='lstm', choices=['lstm', 'protbert_cached'],
+                       help='Protein representation backend: lstm (default) or protbert_cached')
+    parser.add_argument('--protein_embedding_path', type=str, default=None,
+                       help='Path to NPZ/PT file with precomputed protein embeddings (required for protbert_cached)')
+    parser.add_argument('--protein_embedding_dim', type=int, default=1024,
+                       help='Dimensionality of cached protein embeddings')
     
     args = parser.parse_args()
     
@@ -202,6 +210,9 @@ def main():
         'use_mixed_precision': args.use_mixed_precision,
         'simple_attention': args.simple_attention,
         'ultra_fast': args.ultra_fast,
+        'protein_encoder': args.protein_encoder,
+        'protein_embedding_path': args.protein_embedding_path,
+        'protein_embedding_dim': args.protein_embedding_dim,
         'num_workers': args.num_workers,
         'pin_memory': args.pin_memory,
         'optimizations': 'fast_training_enabled',
@@ -228,6 +239,32 @@ def main():
     protein_max_length = args.max_protein_length
     print(f"Using optimized sequence lengths: RNA={rna_max_length}, Protein={protein_max_length}")
     
+    # Optionally load cached protein embeddings
+    protein_embedding_lookup = None
+    if args.protein_encoder == 'protbert_cached':
+        if not args.protein_embedding_path:
+            raise ValueError('--protein_embedding_path is required when using --protein_encoder protbert_cached')
+        print(f"Loading cached protein embeddings from {args.protein_embedding_path} ...")
+        import numpy as _np
+        import torch as _torch
+        emb_path = args.protein_embedding_path
+        if emb_path.endswith('.npz'):
+            data = _np.load(emb_path, allow_pickle=True)
+            protein_embedding_lookup = {str(k): data[k] for k in data.files}
+        elif emb_path.endswith('.pt') or emb_path.endswith('.pth'):
+            data = _torch.load(emb_path, map_location='cpu')
+            protein_embedding_lookup = {str(k): (v.numpy() if hasattr(v, 'numpy') else _np.array(v)) for k, v in data.items()}
+        else:
+            raise ValueError('Unsupported embedding file format. Use .npz or .pt/.pth')
+        print(f"Loaded {len(protein_embedding_lookup)} protein embeddings")
+        # Sanity check: ensure all proteins have embeddings to avoid tensor shape mismatch in DataLoader
+        unique_proteins = set(protein_sequences)
+        missing = [p for p in unique_proteins if p not in protein_embedding_lookup]
+        if missing:
+            print(f"❌ Missing embeddings for {len(missing)} proteins. Please re-run caching to cover all proteins.")
+            print("Example missing:", missing[:5])
+            raise SystemExit(1)
+
     train_loader, val_loader, _, _ = create_data_loaders(
         rna_sequences=rna_sequences,
         protein_sequences=protein_sequences,
@@ -237,7 +274,8 @@ def main():
         rna_max_length=rna_max_length,
         protein_max_length=protein_max_length,
         num_workers=args.num_workers,
-        pin_memory=args.pin_memory
+        pin_memory=args.pin_memory,
+        protein_embedding_lookup=protein_embedding_lookup
     )
     print()
     
@@ -249,7 +287,16 @@ def main():
         print("🔧 Using simplified attention mechanism for speed")
     
     # Choose model based on speed requirements
-    if args.ultra_fast:
+    if args.protein_encoder == 'protbert_cached':
+        print("🧬 Using ProteinEmbeddingFusion with cached ProteinBERT embeddings")
+        model = ProteinEmbeddingFusion(
+            rna_input_size=5,
+            rna_hidden_size=args.hidden_size,
+            num_layers=args.num_layers,
+            dropout=args.dropout,
+            protein_embedding_dim=args.protein_embedding_dim
+        )
+    elif args.ultra_fast:
         print("🚀 Using UltraFastLSTM for maximum speed")
         model = UltraFastLSTM(
             rna_input_size=5,
@@ -300,7 +347,10 @@ def main():
     
     # Enable mixed precision if requested
     print(f"🚀 Mixed precision training: {'Enabled' if args.use_mixed_precision else 'Disabled'}")
-    print(f"🎯 Model type: {'UltraFast' if args.ultra_fast else 'FastAttention'}")
+    if args.protein_encoder == 'protbert_cached':
+        print("🎯 Model type: ProteinEmbeddingFusion (cached ProteinBERT)")
+    else:
+        print(f"🎯 Model type: {'UltraFast' if args.ultra_fast else 'FastAttention'}")
     
     print()
     print("🎯 Training can be stopped anytime with Ctrl+C")
