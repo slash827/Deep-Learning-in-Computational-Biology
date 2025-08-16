@@ -1,0 +1,88 @@
+{
+  "experiment_info": {
+    "timestamp": "20250815_200909",
+    "run_name": "phase2_fast_20250815_194926",
+    "phase": "Phase 2 FAST - Optimized BiLSTM + Attention",
+    "description": "RNA-Protein Binding Prediction using Enhanced BiLSTM Architecture"
+  },
+  "system_info": {
+    "device": "cpu",
+    "pytorch_version": "2.8.0+cpu",
+    "cuda_available": false,
+    "gpu_memory_gb": null
+  },
+  "data_configuration": {
+    "subset_size": 500,
+    "batch_size": 32,
+    "validation_split": 0.2,
+    "max_rna_length": 60,
+    "max_protein_length": 300,
+    "rna_input_size": 5,
+    "protein_input_size": 21
+  },
+  "model_architecture": {
+    "model_type": "ProteinEmbeddingFusion",
+    "total_parameters": 991873,
+    "trainable_parameters": 991873,
+    "rna_hidden_size": 96,
+    "protein_hidden_size": 96,
+    "num_layers": 1,
+    "dropout": 0.2,
+    "bidirectional": true,
+    "fusion_hidden_size": 192,
+    "attention_heads": 6,
+    "attention_dropout": 0.05,
+    "use_positional_encoding": false
+  },
+  "training_hyperparameters": {
+    "epochs": 8,
+    "learning_rate": 0.0005,
+    "weight_decay": 0.0001,
+    "optimizer": "Adam",
+    "loss_function": "MSE",
+    "early_stopping": {
+      "patience": 8,
+      "min_delta": 0.0001
+    },
+    "gradient_clipping": {
+      "max_grad_norm": 1.0
+    },
+    "lr_scheduler": {
+      "type": "ReduceLROnPlateau",
+      "patience": 4,
+      "factor": 0.7
+    },
+    "warmup_epochs": 1
+  },
+  "training_results": {
+    "best_epoch": 6,
+    "total_epochs_trained": 8,
+    "early_stopped": true,
+    "interrupted": false,
+    "training_time_seconds": 1157.8919882774353,
+    "best_validation_correlation": 0.7473519444465637,
+    "final_training_correlation": 0.7495699524879456,
+    "final_validation_correlation": 0.7467585802078247,
+    "best_validation_loss": null,
+    "final_training_loss": 0.0032028891211608426,
+    "final_validation_loss": 0.003080974565818906
+  },
+  "validation_metrics": {
+    "pearson_correlation": 0.7467585802078247,
+    "mse": 0.003080974565818906,
+    "mae": 0.03774559497833252,
+    "rmse": 0.055506527236163006
+  },
+  "performance_analysis": {
+    "overfitting_assessment": "no_overfitting",
+    "convergence_status": "converged_early",
+    "performance_tier": "excellent"
+  },
+  "file_paths": {
+    "model_checkpoint": "models/model.pth",
+    "training_plots": "plots/training_history.png",
+    "prediction_plot": "plots/predictions_vs_targets.png",
+    "config_file": "config.json",
+    "training_summary": "training_summary.json"
+  }
+}

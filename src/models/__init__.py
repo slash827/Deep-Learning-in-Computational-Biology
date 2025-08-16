@@ -1,0 +1,2 @@
+from .protein_embedding_fusion import ProteinEmbeddingFusion
+

@@ -1,0 +1,27 @@
+{
+  "best_val_correlation": 0.7473519444465637,
+  "best_epoch": 6,
+  "final_train_loss": 0.0032028891211608426,
+  "final_val_loss": 0.003080974565818906,
+  "final_train_correlation": 0.7495699524879456,
+  "final_val_correlation": 0.7467585802078247,
+  "total_epochs": 8,
+  "total_training_time": 1157.8919882774353,
+  "model_info": {
+    "model_name": "ProteinEmbeddingFusion",
+    "total_parameters": 991873,
+    "trainable_parameters": 991873,
+    "rna_hidden_size": 96,
+    "num_layers": 1,
+    "dropout": 0.2,
+    "protein_embedding_dim": 1024
+  },
+  "interrupted": false,
+  "early_stopped": true,
+  "output_dir": "runs\\phase2_fast_20250815_194926",
+  "mixed_precision": false,
+  "model_compiled": false,
+  "optimizations_enabled": true,
+  "total_wall_time": 1157.893845,
+  "time_per_epoch": 144.736730625
+}

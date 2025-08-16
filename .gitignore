@@ -3,4 +3,16 @@
 /src/training/__pycache__/
 /src/models/__pycache__/
 /src/__pycache__/
-/data
+/runs/emb_cache/
+*.pt
+*.pth
+.idea/
+# Large data files
+src/data/training_data2.txt
+src/data/test_seqs.txt
+src/data/training_seqs.txt
+src/data/training_RBPs2.txt
+src/data/test_RBPs2.txt
+
+# Model files
+phase1_model.pth
