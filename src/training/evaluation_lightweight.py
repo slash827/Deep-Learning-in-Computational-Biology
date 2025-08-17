@@ -212,15 +212,36 @@ class MetricsTracker:
             self.best_epoch = epoch
     
     def get_summary(self) -> Dict:
-        """Get summary of training metrics."""
+        """Get summary of training metrics including detailed epoch-by-epoch data."""
+        # Create epoch-by-epoch history
+        epoch_history = []
+        for i in range(len(self.train_losses)):
+            epoch_data = {
+                'epoch': i,
+                'train_loss': float(self.train_losses[i]) if i < len(self.train_losses) else None,
+                'val_loss': float(self.val_losses[i]) if i < len(self.val_losses) else None,
+                'train_correlation': float(self.train_correlations[i]) if i < len(self.train_correlations) else None,
+                'val_correlation': float(self.val_correlations[i]) if i < len(self.val_correlations) else None
+            }
+            epoch_history.append(epoch_data)
+        
         return {
-            'best_val_correlation': self.best_val_correlation,
-            'best_epoch': self.best_epoch,
-            'final_train_loss': self.train_losses[-1] if self.train_losses else 0.0,
-            'final_val_loss': self.val_losses[-1] if self.val_losses else 0.0,
-            'final_train_correlation': self.train_correlations[-1] if self.train_correlations else 0.0,
-            'final_val_correlation': self.val_correlations[-1] if self.val_correlations else 0.0,
-            'total_epochs': len(self.train_losses)
+            'best_val_correlation': float(self.best_val_correlation),
+            'best_epoch': int(self.best_epoch),
+            'final_train_loss': float(self.train_losses[-1]) if self.train_losses else None,
+            'final_val_loss': float(self.val_losses[-1]) if self.val_losses else None,
+            'final_train_correlation': float(self.train_correlations[-1]) if self.train_correlations else None,
+            'final_val_correlation': float(self.val_correlations[-1]) if self.val_correlations else None,
+            'total_epochs_trained': len(self.train_losses),
+            # Detailed epoch-by-epoch history
+            'epoch_history': epoch_history,
+            # Summary statistics
+            'training_metrics_summary': {
+                'min_train_loss': float(min(self.train_losses)) if self.train_losses else None,
+                'min_val_loss': float(min(self.val_losses)) if self.val_losses else None,
+                'max_train_correlation': float(max(self.train_correlations)) if self.train_correlations else None,
+                'max_val_correlation': float(max(self.val_correlations)) if self.val_correlations else None,
+            }
         }
     
     def save_training_plots(self, output_dir: str) -> bool:

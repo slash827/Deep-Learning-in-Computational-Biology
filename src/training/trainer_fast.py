@@ -305,6 +305,10 @@ class FastRNAProteinTrainer:
                 # Use previous train correlation to speed up training
                 train_correlation = self.metrics_tracker.train_correlations[-1] if self.metrics_tracker.train_correlations else 0.0
             
+            # Check for improvement BEFORE updating metrics tracker (BUG FIX)
+            previous_best_val_correlation = self.metrics_tracker.best_val_correlation
+            improvement = val_correlation - previous_best_val_correlation
+            
             # Update metrics tracker
             self.metrics_tracker.update(
                 train_loss, val_loss, train_correlation, val_correlation, epoch
@@ -313,8 +317,7 @@ class FastRNAProteinTrainer:
             # Update learning rate scheduler
             self.scheduler.step(val_correlation)
             
-            # Check for improvement
-            improvement = val_correlation - self.metrics_tracker.best_val_correlation
+            # Process improvement (using the correctly calculated improvement)
             if improvement > self.min_delta:
                 self.epochs_without_improvement = 0
                 # Save best model
