@@ -1,0 +1,29 @@
+{
+  "best_val_loss": 0.05974103399813175,
+  "best_val_correlation": 0.8184510469436646,
+  "best_epoch": 4,
+  "total_epochs": 5,
+  "total_training_time": 3052.841544151306,
+  "final_metrics": {
+    "pearson_correlation": 0.8136768341064453,
+    "mse": 0.09293846040964127,
+    "mae": 0.20360548794269562,
+    "rmse": 0.30485809880933334,
+    "spearman_correlation": 0.8168503143672106,
+    "num_samples": 20000
+  },
+  "model_info": {
+    "model_name": "ProteinEmbeddingFusion",
+    "total_parameters": 1163777,
+    "trainable_parameters": 1163777,
+    "backbone_parameters": 1163777,
+    "embedding_dim": 256,
+    "temperature": 0.1,
+    "rna_hidden_size": 128,
+    "num_layers": 1,
+    "dropout": 0.2,
+    "protein_embedding_dim": 1024
+  },
+  "early_stopped": false,
+  "loss_type": "hybrid"
+}

@@ -1,0 +1,26 @@
+{
+  "name": "system_safe_config",
+  "description": "Safe configuration to prevent system crashes",
+  "safety_measures": {
+    "force_cpu": true,
+    "batch_size": 16,
+    "hidden_size": 32,
+    "num_layers": 1,
+    "subset_size": 100,
+    "epochs": 3,
+    "early_stopping_patience": 2,
+    "max_protein_length": 200,
+    "max_rna_length": 40
+  },
+  "monitoring": {
+    "memory_check_interval": 10,
+    "cpu_usage_limit": 80,
+    "auto_stop_on_high_usage": true
+  },
+  "recommendations": [
+    "Start with ultra-fast configuration (27x speedup)",
+    "Use GPU if available to reduce CPU load", 
+    "Monitor system resources during training",
+    "Gradually increase model complexity only after stability confirmed"
+  ]
+}
