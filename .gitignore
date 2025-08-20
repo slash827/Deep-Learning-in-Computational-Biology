@@ -14,5 +14,3 @@ src/data/training_seqs.txt
 src/data/training_RBPs2.txt
 src/data/test_RBPs2.txt
 
-# Model files
-phase1_model.pth
