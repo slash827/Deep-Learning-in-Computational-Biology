@@ -4,6 +4,7 @@ import random
 from typing import List, Tuple, Dict, Optional
 from torch.utils.data import Dataset
 from .dataset import RNAProteinDataset, load_training_data
+from .strategic_split import create_strategic_split, analyze_split_novelty
 
 
 class SiameseRNAProteinDataset(Dataset):
@@ -272,7 +273,8 @@ def create_siamese_dataloaders(data_dir: str,
                              train_ratio: float = 0.8,
                              positive_threshold: float = 0.7,
                              negative_threshold: float = 0.3,
-                             num_workers: int = 0) -> Tuple[torch.utils.data.DataLoader, torch.utils.data.DataLoader]:
+                             num_workers: int = 0,
+                             split_strategy: str = "mixed") -> Tuple[torch.utils.data.DataLoader, torch.utils.data.DataLoader]:
     """
     Create train and validation dataloaders for Siamese learning.
     
@@ -287,6 +289,7 @@ def create_siamese_dataloaders(data_dir: str,
         positive_threshold: Threshold for positive pairs
         negative_threshold: Threshold for negative pairs
         num_workers: Number of data loading workers
+        split_strategy: Strategy for train/val split ("random", "protein", "rna", "mixed")
         
     Returns:
         train_loader, val_loader
@@ -298,15 +301,17 @@ def create_siamese_dataloaders(data_dir: str,
     # Load protein embeddings
     protein_embeddings = torch.load(protein_embedding_path)
     
-    # Split data
-    n_total = len(rna_seqs)
-    n_train = int(n_total * train_ratio)
+    # Strategic split based on strategy
+    print(f"🎯 Using {split_strategy} splitting strategy")
+    train_indices, val_indices = create_strategic_split(
+        rna_seqs, protein_seqs, affinities,
+        strategy=split_strategy, train_ratio=train_ratio
+    )
     
-    indices = list(range(n_total))
-    random.shuffle(indices)
-    
-    train_indices = indices[:n_train]
-    val_indices = indices[n_train:]
+    # Analyze split novelty
+    split_stats = analyze_split_novelty(
+        train_indices, val_indices, rna_seqs, protein_seqs
+    )
     
     # Create train dataset
     train_rnas = [rna_seqs[i] for i in train_indices]
