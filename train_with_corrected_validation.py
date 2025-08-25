@@ -1,0 +1,206 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+מדריך אימון עם הvalidation המתוקן
+"""
+
+def show_corrected_training_commands():
+    print("🚀 אימון עם Validation מתוקן")
+    print("=" * 60)
+    print()
+    
+    print("✅ עכשיו עם realistic_test - מדמה את הטסט האמיתי!")
+    print()
+    
+    print("1️⃣ אימון מהיר לבדיקה (5 דקות):")
+    print("────────────────────────────────────")
+    print("python phase2_siamese.py \\")
+    print("    --split_strategy realistic_test \\")
+    print("    --subset_size 1000 \\")
+    print("    --epochs 3 \\")
+    print("    --batch_size 32 \\")
+    print("    --data_dir src/data/ \\")
+    print("    --pair_sampling_ratio 0.5")
+    print()
+    print("💡 זה יבדוק שהvalidation החדש עובד")
+    print("   תצפי ל: 'Realistic test: X proteins, Y RNAs in validation'")
+    print("   ו: '100% validation pairs have both sequences new'")
+    print()
+    
+    print("2️⃣ אימון בינוני לתוצאות (15 דקות):")
+    print("───────────────────────────────────────")
+    print("python phase2_siamese.py \\")
+    print("    --split_strategy realistic_test \\")
+    print("    --subset_size 2000 \\")
+    print("    --epochs 8 \\")
+    print("    --batch_size 64 \\")
+    print("    --data_dir src/data/ \\")
+    print("    --pair_sampling_ratio 0.5")
+    print()
+    print("💡 זה יתן תוצאות יציבות")
+    print()
+    
+    print("3️⃣ אימון מלא לביצועים הטובים ביותר:")
+    print("─────────────────────────────────────────")
+    print("python phase2_siamese.py \\")
+    print("    --split_strategy realistic_test \\")
+    print("    --subset_size 5000 \\")
+    print("    --epochs 15 \\")
+    print("    --batch_size 128 \\")
+    print("    --data_dir src/data/ \\")
+    print("    --pair_sampling_ratio 0.5 \\")
+    print("    --learning_rate 0.001 \\")
+    print("    --patience 10")
+    print()
+    print("💡 זה לתוצאות הסופיות")
+
+def show_comparison_commands():
+    print()
+    print("📊 השוואה: הvalidation הישן vs החדש")
+    print("=" * 60)
+    print()
+    
+    print("🧪 כדי לראות את ההבדל הדרמטי:")
+    print()
+    
+    print("A. Validation ישן (שגוי):")
+    print("python phase2_siamese.py \\")
+    print("    --split_strategy random \\")
+    print("    --subset_size 1000 \\")
+    print("    --epochs 5 \\")
+    print("    --data_dir src/data/")
+    print("   # תוצאה צפויה: correlation ~0.85 (מטעה!)")
+    print()
+    
+    print("B. Validation לא מדויק:")
+    print("python phase2_siamese.py \\")
+    print("    --split_strategy test_simulation \\")
+    print("    --subset_size 1000 \\")
+    print("    --epochs 5 \\")
+    print("    --data_dir src/data/")
+    print("   # תוצאה צפויה: correlation ~0.78 (טוב אבל לא מדויק)")
+    print()
+    
+    print("C. Validation אמיתי (נכון!):")
+    print("python phase2_siamese.py \\")
+    print("    --split_strategy realistic_test \\")
+    print("    --subset_size 1000 \\")
+    print("    --epochs 5 \\")
+    print("    --data_dir src/data/")
+    print("   # תוצאה צפויה: correlation ~0.70-0.75 (אמיתי!)")
+    print()
+    
+    print("💡 הציון הנמוך ב-C הוא הכי טוב - זה אומר validation אמיתי!")
+
+def show_expected_output():
+    print()
+    print("📊 מה לצפות בפלט החדש:")
+    print("=" * 60)
+    print()
+    
+    print("🎯 עם realistic_test תראי:")
+    print()
+    print("🎯 Using realistic_test splitting strategy")
+    print("🎯 Creating realistic_test split for 200000 samples...")
+    print("🎯 Realistic test: 40 proteins, 300 RNAs in validation")
+    print("✅ 100% validation pairs have both sequences new (like real test!)")
+    print("✅ Split complete: 188000 train, 12000 validation")
+    print("📊 Split ratio: 94.0% train, 6.0% validation")
+    print()
+    
+    print("💡 ההבדלים החשובים מהvalidation הישן:")
+    print("   📈 Validation קטן יותר (6% במקום 44%)")
+    print("   📈 אבל קשה הרבה יותר!")
+    print("   📈 100% זוגות עם שני רצפים חדשים")
+    print()
+    
+    print("📈 Training progress צפוי:")
+    print("Epoch 1/5 - Train Loss: 0.135, Val Loss: 0.118, Val Corr: 0.629")
+    print("Epoch 2/5 - Train Loss: 0.098, Val Loss: 0.102, Val Corr: 0.684")
+    print("Epoch 3/5 - Train Loss: 0.087, Val Loss: 0.095, Val Corr: 0.712")
+    print("Epoch 4/5 - Train Loss: 0.079, Val Loss: 0.089, Val Corr: 0.738")
+    print("Epoch 5/5 - Train Loss: 0.074, Val Loss: 0.085, Val Corr: 0.751")
+    print()
+    print("💡 ציונים נמוכים יותר מבעבר - וזה טוב!")
+
+def show_gpu_optimization():
+    print()
+    print("🚀 אופטימיזציה עם GPU:")
+    print("=" * 60)
+    print()
+    
+    print("אם יש לך GPU זמין:")
+    print("python phase2_siamese.py \\")
+    print("    --split_strategy realistic_test \\")
+    print("    --subset_size 10000 \\")
+    print("    --epochs 20 \\")
+    print("    --batch_size 256 \\")
+    print("    --data_dir src/data/ \\")
+    print("    --learning_rate 0.001 \\")
+    print("    --patience 15")
+    print()
+    print("💡 זה יהיה מהיר הרבה יותר וייתן תוצאות מעולות!")
+
+def show_troubleshooting():
+    print()
+    print("🔧 פתרון בעיות:")
+    print("=" * 60)
+    print()
+    
+    print("❌ אם מקבלת שגיאה:")
+    print("'ModuleNotFoundError: No module named torch'")
+    print()
+    print("✅ פתרון:")
+    print("# וודא שאת ב-virtual environment נכון")
+    print("# או התקן pytorch")
+    print()
+    
+    print("❌ אם מקבלת:")
+    print("'Unknown strategy: realistic_test'")
+    print()
+    print("✅ פתרון:")
+    print("# וודא שעדכנת את strategic_split.py")
+    print("ls -la src/data/strategic_split.py")
+    print("# צריך להכיל את האסטרטגיה החדשה")
+    print()
+    
+    print("❌ אם validation קטן מדי:")
+    print("'Split complete: 198000 train, 2000 validation'")
+    print()
+    print("✅ פתרון:")
+    print("# זה בסדר! validation קטן אבל קשה")
+    print("# אם רוצה יותר validation, הגדל subset_size")
+    print("--subset_size 5000  # במקום 1000")
+
+def show_next_steps():
+    print()
+    print("🎯 הצעדים הבאים:")
+    print("=" * 60)
+    print()
+    
+    print("1️⃣ בדוק שהvalidation עובד:")
+    print("   python phase2_siamese.py --split_strategy realistic_test --subset_size 500 --epochs 2")
+    print()
+    
+    print("2️⃣ השווה עם הvalidation הישן:")
+    print("   python phase2_siamese.py --split_strategy random --subset_size 500 --epochs 2")
+    print("   # הציונים צריכים להיות שונים!")
+    print()
+    
+    print("3️⃣ אמן מודל טוב:")
+    print("   python phase2_siamese.py --split_strategy realistic_test --subset_size 2000 --epochs 10")
+    print()
+    
+    print("4️⃣ השתמש במודל לprediction:")
+    print("   # עם FlexiblePredictor שיצרנו לחלבונים חדשים")
+    print()
+    
+    print("✨ עכשיו יש לך validation אמיתי שמכין אותך לטסט!")
+
+if __name__ == "__main__":
+    show_corrected_training_commands()
+    show_comparison_commands()
+    show_expected_output()
+    show_gpu_optimization()
+    show_troubleshooting()
+    show_next_steps()

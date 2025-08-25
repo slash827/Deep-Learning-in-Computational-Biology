@@ -76,6 +76,7 @@ def create_config(args) -> Dict[str, Any]:
         # Optimization flags
         'force_cpu': args.force_cpu,
         'train_ratio': args.train_ratio,
+        'split_strategy': args.split_strategy,
         
         # Timestamp
         'timestamp': datetime.now().isoformat()
@@ -152,6 +153,9 @@ def main():
                        help='Number of data loading workers')
     parser.add_argument('--train_ratio', type=float, default=0.8,
                        help='Ratio of data to use for training')
+    parser.add_argument('--split_strategy', type=str, default='realistic_test',
+                       choices=['random', 'protein', 'rna', 'mixed', 'test_simulation', 'realistic_test'],
+                       help='Strategy for train/validation split')
     
     # Parse arguments
     args = parser.parse_args()
@@ -191,7 +195,8 @@ def main():
             train_ratio=config['train_ratio'],
             positive_threshold=config['positive_threshold'],
             negative_threshold=config['negative_threshold'],
-            num_workers=config['num_workers']
+            num_workers=config['num_workers'],
+            split_strategy=config['split_strategy']
         )
         
         print(f"Train loader: {len(train_loader)} batches")
