@@ -23,7 +23,7 @@ class ExperimentRunner:
         print(f"{'='*60}")
         
         # Build command
-        cmd = ["python", "phase2_siamese.py", "--data_dir", "src/data/"]
+        cmd = ["python", "phase2_siamese.py", "--data_dir src/dataset/"]
         
         for key, value in params.items():
             if isinstance(value, bool) and value:

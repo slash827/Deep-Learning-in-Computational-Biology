@@ -1,0 +1,50 @@
+{
+  "best_val_correlation": 0.0,
+  "best_epoch": 0,
+  "final_train_loss": 0.007989576638190556,
+  "final_val_loss": 0.006738237105309963,
+  "final_train_correlation": 0.0,
+  "final_val_correlation": 0.0,
+  "total_epochs_trained": 1,
+  "epoch_history": [
+    {
+      "epoch": 0,
+      "train_loss": 0.007989576638190556,
+      "val_loss": 0.006738237105309963,
+      "train_correlation": 0.0,
+      "val_correlation": 0.0
+    }
+  ],
+  "training_metrics_summary": {
+    "min_train_loss": 0.007989576638190556,
+    "max_train_loss": 0.007989576638190556,
+    "min_val_loss": 0.006738237105309963,
+    "max_val_loss": 0.006738237105309963,
+    "max_train_correlation": 0.0,
+    "min_train_correlation": 0.0,
+    "max_val_correlation": 0.0,
+    "min_val_correlation": 0.0
+  },
+  "total_epochs": 1,
+  "total_training_time": 231.89015984535217,
+  "model_info": {
+    "model_name": "FastAttentionLSTM",
+    "total_parameters": 444161,
+    "trainable_parameters": 444161,
+    "rna_hidden_size": 80,
+    "protein_hidden_size": 80,
+    "num_layers": 1,
+    "attention_heads": 4,
+    "dropout": 0.2,
+    "use_positional_encoding": false,
+    "optimizations": "simplified_attention_enabled"
+  },
+  "interrupted": false,
+  "early_stopped": false,
+  "output_dir": "runs\\phase2_fast_20250820_105841",
+  "mixed_precision": false,
+  "model_compiled": false,
+  "optimizations_enabled": true,
+  "total_wall_time": 231.894716,
+  "time_per_epoch": 231.894716
+}

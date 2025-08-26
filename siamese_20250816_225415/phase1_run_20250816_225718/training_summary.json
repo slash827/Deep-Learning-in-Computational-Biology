@@ -1,8 +1,0 @@
-{
-  "best_val_loss": 0.06288295119404792,
-  "best_val_correlation": 0.8142672777175903,
-  "best_epoch": 4,
-  "total_epochs": 5,
-  "total_training_time": 3367.7730674743652,
-  "final_metrics": {
-    "mse": 

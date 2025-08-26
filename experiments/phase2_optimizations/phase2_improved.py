@@ -25,7 +25,7 @@ from src.training.trainer_improved import ImprovedRNAProteinTrainer  # Use impro
 from src.utils.helpers import set_random_seed, create_run_directory, save_experiment_config
 
 
-def load_data(data_dir="data"):
+def load_data(data_dir="src/dataset"):
     """Load training and test data with comprehensive error handling."""
     try:
         # Load training data
@@ -136,7 +136,7 @@ def main():
     parser.add_argument('--patience', type=int, default=15, help='Early stopping patience')
     parser.add_argument('--max_seq_length', type=int, default=1000, help='Maximum sequence length')
     parser.add_argument('--seed', type=int, default=42, help='Random seed')
-    parser.add_argument('--data_dir', type=str, default='data', help='Data directory')
+    parser.add_argument('--data_dir', type=str, default='src/dataset', help='Data directory')
     parser.add_argument('--force_cpu', action='store_true', help='Force CPU usage')
     parser.add_argument('--mixed_precision', action='store_true', help='Use mixed precision training')
     parser.add_argument('--validation_split', type=float, default=0.2, help='Validation split ratio')

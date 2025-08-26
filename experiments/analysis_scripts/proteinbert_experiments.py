@@ -24,7 +24,7 @@ class ProteinBERTExperimentRunner:
         # Build command for embedding creation
         cmd = [
             "python", "scripts/cache_proteinbert_embeddings.py",
-            "--data_dir", "src/data",
+            "--data_dir src/dataset",
             "--out", output_path
         ]
         
@@ -69,7 +69,7 @@ class ProteinBERTExperimentRunner:
             'regression_weight': 0.3
         }
         
-        cmd = ["python", "phase2_siamese.py", "--data_dir", "src/data/"]
+        cmd = ["python", "phase2_siamese.py", "--data_dir src/dataset/"]
         
         for key, value in test_params.items():
             if isinstance(value, bool) and value:

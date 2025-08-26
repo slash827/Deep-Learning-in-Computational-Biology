@@ -33,7 +33,7 @@ def show_project_structure():
             print(f"   ⚠️  {file} (missing)")
     
     # Show key directories
-    key_dirs = ["src", "runs", "data", "experiments", "emb_cache", "notebooks"]
+    key_dirs = ["src", "runs", "src/dataset", "experiments", "emb_cache", "notebooks"]
     print(f"\n📂 KEY DIRECTORIES:")
     for dir_name in key_dirs:
         dir_path = base_dir / dir_name

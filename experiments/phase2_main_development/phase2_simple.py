@@ -24,7 +24,7 @@ from src.utils.helpers import create_run_directory, save_training_config, save_t
 
 def main():
     parser = argparse.ArgumentParser(description='Phase 2: BiLSTM + Attention for RNA-Protein Binding')
-    parser.add_argument('--data_dir', type=str, default='data', 
+    parser.add_argument('--data_dir', type=str, default='src/dataset', 
                        help='Directory containing data files')
     parser.add_argument('--subset_size', type=int, default=100,
                        help='Number of RNA sequences to use (default: 100)')

@@ -44,7 +44,7 @@ def main():
                        help='Learning rate (default: 0.001)')
     
     # Optional parameters
-    parser.add_argument('--data_dir', type=str, default='data',
+    parser.add_argument('--data_dir', type=str, default='src/dataset',
                        help='Data directory')
     parser.add_argument('--force_cpu', action='store_true',
                        help='Force CPU usage')

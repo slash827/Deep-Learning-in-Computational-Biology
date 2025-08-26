@@ -8,9 +8,11 @@
 *.pth
 .idea/
 # Large data files
-src/data/training_data2.txt
-src/data/test_seqs.txt
-src/data/training_seqs.txt
-src/data/training_RBPs2.txt
-src/data/test_RBPs2.txt
+src/dataset/
+# src/data/training_data2.txt
+# src/data/test_seqs.txt
+# src/data/training_seqs.txt
+# src/data/training_RBPs2.txt
+# src/data/test_RBPs2.txt
 
+/__pycache__
