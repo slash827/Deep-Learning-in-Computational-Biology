@@ -197,14 +197,14 @@ def create_strategic_split(rna_sequences: List[str],
         val_indices = []
         
         for i, (rna, protein) in enumerate(zip(rna_sequences, protein_sequences)):
-            # CORRECTED: Validation only when BOTH sequences are new (like real test!)
-            if protein in val_proteins and rna in val_rnas:
+            # FIXED: Validation when EITHER protein OR RNA is novel (prevents data leakage)
+            if protein in val_proteins or rna in val_rnas:
                 val_indices.append(i)
             else:
                 train_indices.append(i)
                 
         print(f"🎯 Realistic test: {len(val_proteins)} proteins, {len(val_rnas)} RNAs in validation")
-        print(f"✅ 100% validation pairs have both sequences new (like real test!)")
+        print(f"✅ Validation prioritizes novel proteins with diverse RNA combinations")
     
     else:
         raise ValueError(f"Unknown strategy: {strategy}")
