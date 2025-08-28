@@ -1,0 +1,88 @@
+{
+  "execution_info": {
+    "script_name": "comprehensive_siamese_training.py",
+    "full_command_line": "comprehensive_siamese_training.py --samples 8000 --epochs 20 --lr 0.0005 --batch_size 64 --split realistic_test --output comprehensive_results --name final_comprehensive_logging",
+    "working_directory": "C:\\Users\\gilad\\Documents\\GitHub\\Deep-Learning-in-Computational-Biology",
+    "timestamp": "20250826_183051",
+    "experiment_name": "final_comprehensive_logging"
+  },
+  "cli_arguments": {
+    "num_samples": 8000,
+    "num_epochs": 20,
+    "learning_rate": 0.0005,
+    "batch_size": 64,
+    "split_strategy": "realistic_test",
+    "output_dir": "comprehensive_results"
+  },
+  "reproduction_command": {
+    "exact_reproduction": "python comprehensive_siamese_training.py --samples 8000 --epochs 20 --lr 0.0005 --batch_size 64 --split realistic_test --output comprehensive_results --name final_comprehensive_logging",
+    "reproduction_notes": "Use this exact command to reproduce the results"
+  },
+  "environment": {
+    "python_version": "3.11.2 (tags/v3.11.2:878ead1, Feb  7 2023, 16:38:35) [MSC v.1934 64 bit (AMD64)]",
+    "python_executable": "C:\\Users\\gilad\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+    "pytorch_version": "2.0.0+cu118",
+    "cuda_available": true,
+    "cuda_version": "11.8",
+    "cuda_device_count": 1,
+    "device_name": "NVIDIA GeForce GTX 1650"
+  },
+  "data_split_analysis": {
+    "total_samples": 8000,
+    "train_samples": 4555,
+    "val_samples": 3445,
+    "train_ratio": 0.569375,
+    "unique_rnas_total": 7698,
+    "unique_proteins_total": 176,
+    "unique_rnas_train": 4417,
+    "unique_proteins_train": 141,
+    "unique_rnas_val": 3344,
+    "unique_proteins_val": 176,
+    "rna_overlap": 63,
+    "protein_overlap": 141,
+    "rna_overlap_ratio": 0.018839712918660288,
+    "protein_overlap_ratio": 0.8011363636363636
+  },
+  "model_info": {
+    "model_class": "ComprehensiveSiameseNetwork",
+    "total_parameters": 771649,
+    "trainable_parameters": 771649,
+    "architecture_config": {
+      "rna_vocab_size": 5,
+      "protein_dim": 1024,
+      "embedding_dim": 256,
+      "hidden_dim": 128,
+      "dropout": 0.2
+    }
+  },
+  "training_config": {
+    "optimizer": "AdamW",
+    "learning_rate": 0.0005,
+    "weight_decay": 0.0001,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "criterion": "MSELoss",
+    "scheduler": "ReduceLROnPlateau",
+    "scheduler_config": {
+      "mode": "max",
+      "factor": 0.7,
+      "patience": 5
+    },
+    "batch_size": 64,
+    "num_epochs": 20
+  },
+  "detailed_training_log": {
+    "epochs": [
+      {
+        "epoch": 1,
+        "train_loss": 0.26683320705261493,
+        "train_correlation": 0.11972628756633746,
+        "train_spearman": 0.22449508107802502,
+        "val_loss": 0.14694130351697957,
+        "val_correlation": 0.3952561384401532,
+        "val_spearman": 0.39581718217742745,
+        "learning_rate": 0.0005,
+        "epoch_duration_seconds": 7.509101390838623,
+        "is_best": 
