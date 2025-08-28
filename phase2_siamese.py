@@ -89,10 +89,10 @@ def main():
     parser = argparse.ArgumentParser(description='Siamese Contrastive Learning for RNA-Protein Binding')
     
     # Data arguments
-    parser.add_argument('--data_dir src/datasetset/', 
+    parser.add_argument('--data_dir', type=str, default='src/dataset', 
                        help='Directory containing training data')
     parser.add_argument('--protein_embedding_path', type=str, 
-                       default='runs/emb_cache/protein_bert.pt',
+                       default='emb_cache/protein_bert.pt',
                        help='Path to cached protein embeddings')
     parser.add_argument('--subset_size', type=int, default=None,
                        help='Use subset of data for testing (default: use all data)')
